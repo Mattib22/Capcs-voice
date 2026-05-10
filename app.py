@@ -75,19 +75,38 @@ p, li, label { color: #1A1714; }
 .history-sig { font-size: 10px; color: #9A7B3A; letter-spacing: 1px;
                text-transform: uppercase; margin-top: 4px; }
 
-/* Buttons */
-.stButton > button {
+/* Buttons — target both legacy and modern Streamlit button structures */
+.stButton button,
+[data-testid="stBaseButton-primary"],
+[data-testid="stBaseButton-secondary"] {
     font-family: 'DM Mono', monospace !important;
     font-size: 12px !important; letter-spacing: 1.5px !important;
     text-transform: uppercase !important; border-radius: 4px !important;
 }
-.stButton > button[kind="primary"] {
-    background: #1A1714 !important; color: #F7F4EE !important;
+[data-testid="stBaseButton-primary"],
+.stButton button[kind="primary"] {
+    background: #1A1714 !important;
     border: none !important;
 }
-.stButton > button[kind="secondary"] {
+/* Explicitly colour text inside primary buttons — inner <p> overrides cascade */
+[data-testid="stBaseButton-primary"],
+[data-testid="stBaseButton-primary"] p,
+[data-testid="stBaseButton-primary"] span,
+.stButton button[kind="primary"],
+.stButton button[kind="primary"] p,
+.stButton button[kind="primary"] span {
+    color: #F7F4EE !important;
+}
+[data-testid="stBaseButton-secondary"],
+.stButton button[kind="secondary"] {
     background: transparent !important; color: #7A7268 !important;
     border: 1px solid rgba(26,23,20,0.20) !important;
+}
+[data-testid="stBaseButton-secondary"] p,
+[data-testid="stBaseButton-secondary"] span,
+.stButton button[kind="secondary"] p,
+.stButton button[kind="secondary"] span {
+    color: #7A7268 !important;
 }
 
 /* Radio + select */

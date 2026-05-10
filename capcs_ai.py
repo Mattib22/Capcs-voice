@@ -20,7 +20,7 @@ def _get_model():
         genai.configure(api_key=api_key)
         _model = genai.GenerativeModel(
             "gemini-2.5-flash",
-            generation_config={"temperature": 0.8, "max_output_tokens": 800}
+            generation_config={"temperature": 0.8, "max_output_tokens": 8192}
         )
     return _model
 
@@ -93,7 +93,7 @@ DECISION: {decision}
 SESSION HISTORY (avoid repeating these biases):
 {history}"""
 
-    return _ask(prompt, 400)
+    return _ask(prompt, 2048)
 
 
 # ── 2. PERSPECTIVE ─────────────────────────────────────────────────────────────
@@ -127,7 +127,7 @@ BIAS IDENTIFIED: {bias}
 SESSION HISTORY:
 {history}"""
 
-    result = _ask(prompt, 300)
+    result = _ask(prompt, 1024)
 
     # Parse the two lines
     option, why = "", ""
@@ -179,7 +179,7 @@ PERSPECTIVE OFFERED: {perspective}
 SESSION HISTORY (do not repeat these questions):
 {history}"""
 
-    return _ask(prompt, 200)
+    return _ask(prompt, 512)
 
 
 # ── 4. TRANSCRIPTION ───────────────────────────────────────────────────────────
@@ -251,4 +251,4 @@ USER'S ANSWERS (transcripts):
 SOCIAL SIGNALS DETECTED:
 {chr(10).join(f"- {s}" for s in signals) if signals else "None detected"}"""
 
-    return _ask(prompt, 600)
+    return _ask(prompt, 4096)
